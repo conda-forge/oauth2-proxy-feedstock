@@ -5,11 +5,13 @@ Home: https://github.com/oauth2-proxy/oauth2-proxy
 
 Package license: MIT
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/oauth2-proxy-feedstock/blob/master/LICENSE.txt)
 
 Summary: A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.
 
+Development: https://github.com/oauth2-proxy/oauth2-proxy
 
+Documentation: https://oauth2-proxy.github.io/oauth2-proxy/
 
 Current build status
 ====================
