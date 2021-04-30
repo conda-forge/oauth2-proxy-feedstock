@@ -15,7 +15,7 @@ source:
     sha256: b6d45f3b44a98002ce8f3b581ffd79ade33fb19f374093df43564464439257ad
 
 build:
-  number: 0
+  number: 1
   script:
     - pushd {{ pkg_src }}
     - GOBIN=$(go env GOBIN)  # [not win]
@@ -45,6 +45,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - mxr-conda
     - rluria14
     - ndmaxar
     - oblute
