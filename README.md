@@ -153,6 +153,7 @@ Feedstock Maintainers
 =====================
 
 * [@RyanHackney](https://github.com/RyanHackney/)
+* [@mxr-conda](https://github.com/mxr-conda/)
 * [@ndmaxar](https://github.com/ndmaxar/)
 * [@oblute](https://github.com/oblute/)
 * [@rluria14](https://github.com/rluria14/)
