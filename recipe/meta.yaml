@@ -1,6 +1,6 @@
 {% set provider = "oauth2-proxy" %}
 {% set goname = "github.com/oauth2-proxy/"+provider.lower() %}
-{% set version = "7.1.3" %}
+{% set version = "7.2.1" %}
 
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/'+goname).replace("/",os.sep) %}
@@ -12,10 +12,10 @@ package:
 source:
   - folder: {{ pkg_src }}
     url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-    sha256: b6d45f3b44a98002ce8f3b581ffd79ade33fb19f374093df43564464439257ad
+    sha256: fbbb1581582c1a5655272070599f1739f919add79836027f34b366939c250273
 
 build:
-  number: 1
+  number: 0
   script:
     - pushd {{ pkg_src }}
     - GOBIN=$(go env GOBIN)  # [not win]
