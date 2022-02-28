@@ -45,6 +45,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - asford
     - mxr-conda
     - rluria14
     - ndmaxar
