@@ -1,9 +1,9 @@
 {% set provider = "oauth2-proxy" %}
-{% set goname = "github.com/oauth2-proxy/"+provider.lower() %}
+{% set goname = "github.com/oauth2-proxy/oauth2-proxy" %}
 {% set version = "7.11.0" %}
 
-{% set name = goname.split('/')[-1] %}
-{% set pkg_src = ('src/'+goname).replace("/",os.sep) %}
+{% set name = "oauth2-proxy" %}
+{% set pkg_src = "src/github.com/oauth2-proxy/oauth2-proxy" %}
 
 package:
   name: {{ name|lower }}
@@ -27,7 +27,7 @@ build:
 
 requirements:
   build:
-    - {{ compiler('go') }}
+    - go-nocgo
 
 test:
   requires:
