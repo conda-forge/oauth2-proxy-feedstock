@@ -17,17 +17,19 @@ source:
 build:
   number: 0
   script:
-    - pushd {{ pkg_src }}
+    - pushd {{ pkg_src }}  # [unix]
+    - cd /d "{{ pkg_src }}"  # [win]
     - GOBIN=$(go env GOBIN)  # [not win]
     - if [ -z "$GOBIN" ]; then GOBIN="$PREFIX/bin"; fi  # [not win]
     - FOR /F "delims=" %%i IN ('go env GOBIN') DO set "GOBIN=%%i"  # [win]
     - if "%GOBIN%"=="" set "GOBIN=%PREFIX%\bin"  # [win]
     - go build -v -o $GOBIN/{{ name }} .       # [unix]
-    - go build -v -o %GOBIN%\{{ name }}.exe .  # [win]
+    - go build -v -o "%GOBIN%\{{ name }}.exe" .  # [win]
 
 requirements:
   build:
     - go-nocgo
+    - python
 
 test:
   requires:
