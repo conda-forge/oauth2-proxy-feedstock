@@ -1,12 +1,12 @@
 {% set provider = "oauth2-proxy" %}
-{% set goname = "github.com/oauth2-proxy/"+provider.lower() %}
+{% set goname = "github.com/oauth2-proxy/oauth2-proxy" %}
 {% set version = "7.11.0" %}
 
-{% set name = goname.split('/')[-1] %}
-{% set pkg_src = ('src/'+goname).replace("/",os.sep) %}
+{% set name = "oauth2-proxy" %}
+{% set pkg_src = "src/github.com/oauth2-proxy/oauth2-proxy" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -17,11 +17,10 @@ source:
 build:
   number: 0
   script:
-    - pushd {{ pkg_src }}
-    - GOBIN=$(go env GOBIN)  # [not win]
-    - FOR /F "delims=" %%i IN ('go env GOBIN') DO set "GOBIN=%%i"  # [win]
-    - go build -v -o $GOBIN/{{ name }} .       # [unix]
-    - go build -v -o %GOBIN%\{{ name }}.exe .  # [win]
+    - pushd {{ pkg_src }}  # [unix]
+    - cd /d {{ pkg_src }}  # [win]
+    - go build -v -o $PREFIX/bin/{{ name }} .       # [unix]
+    - go build -v -o %PREFIX%\bin\{{ name }}.exe .  # [win]
 
 requirements:
   build:
@@ -33,15 +32,15 @@ test:
     - m2-coreutils  # [win]
 
   commands:
-    - oauth2-proxy --version
+    - {{ name }} --version
 
 about:
-  home: https://github.com/oauth2-proxy/{{ name }}
+  home: https://{{ goname }}
   license: MIT
   license_file: {{ pkg_src }}/LICENSE
   summary: A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.
-  doc_url: https://oauth2-proxy.github.io/oauth2-proxy/
-  dev_url: https://github.com/oauth2-proxy/{{ name }}
+  doc_url: https://{{ provider }}.github.io/{{ provider }}/
+  dev_url: https://{{ goname }}
 
 extra:
   recipe-maintainers:
