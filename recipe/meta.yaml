@@ -15,7 +15,7 @@ source:
     sha256: 86d005585f753cda3495cf68f231bcb3be13d7c96d80c8890c0f9939e0bddcad
 
 build:
-  number: 0
+  number: 1
   script:
     - pushd {{ pkg_src }}
     - GOBIN=$(go env GOBIN)  # [not win]
