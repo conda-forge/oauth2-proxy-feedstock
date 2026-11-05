@@ -11,7 +11,7 @@ source:
   target_directory: src
 
 build:
-  number: 0
+  number: 1
   script:
     - cd src
     # go-licenses cannot detect the Apache-2.0 license of redislock, so it is
@@ -56,3 +56,4 @@ extra:
     - ndmaxar
     - oblute
     - RyanHackney
+    - xhochy
