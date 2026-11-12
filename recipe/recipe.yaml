@@ -1,0 +1,59 @@
+context:
+  version: "7.15.6"
+
+package:
+  name: oauth2-proxy
+  version: ${{ version }}
+
+source:
+  url: https://github.com/oauth2-proxy/oauth2-proxy/archive/v${{ version }}.tar.gz
+  sha256: 7a24bf731e10d5db9149d7186576bc1286c5d084d3a9536ebece2e53b341b8a9
+  target_directory: src
+
+build:
+  number: 1
+  script:
+    - cd src
+    # go-licenses cannot detect the Apache-2.0 license of redislock, so it is
+    # ignored here and copied over manually below
+    - go-licenses save . --ignore github.com/bsm/redislock --save_path ../library_licenses
+    - if: unix
+      then:
+        - find $SRC_DIR/gopath/pkg/mod/github.com/bsm -maxdepth 2 -path "*redislock*/LICENSE" -exec mkdir -p ../library_licenses/github.com/bsm/redislock \; -exec cp {} ../library_licenses/github.com/bsm/redislock/LICENSE \; -quit
+        - go build -v -o $PREFIX/bin/oauth2-proxy -ldflags="-s -w -X github.com/oauth2-proxy/oauth2-proxy/v7/pkg/version.VERSION=v${{ version }}"
+      else:
+        - for /d %%d in (gopath\pkg\mod\github.com\bsm\redislock*) do mkdir ..\library_licenses\github.com\bsm\redislock & copy "%%d\LICENSE" ..\library_licenses\github.com\bsm\redislock\LICENSE
+        - go build -v -o %LIBRARY_BIN%\oauth2-proxy.exe -ldflags="-s -w -X github.com/oauth2-proxy/oauth2-proxy/v7/pkg/version.VERSION=v${{ version }}"
+
+requirements:
+  build:
+    - ${{ compiler("go-nocgo") }}
+    - go-licenses
+
+tests:
+  - script:
+      - oauth2-proxy --version
+  - package_contents:
+      bin:
+        - oauth2-proxy
+      strict: true
+
+about:
+  homepage: https://github.com/oauth2-proxy/oauth2-proxy
+  summary: A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.
+  license: MIT
+  license_file:
+    - src/LICENSE
+    - library_licenses/
+  documentation: https://oauth2-proxy.github.io/oauth2-proxy/
+  repository: https://github.com/oauth2-proxy/oauth2-proxy
+
+extra:
+  recipe-maintainers:
+    - asford
+    - mxr-conda
+    - rluria14
+    - ndmaxar
+    - oblute
+    - RyanHackney
+    - xhochy
